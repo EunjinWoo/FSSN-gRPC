@@ -6,12 +6,12 @@ import io.grpc.ManagedChannelBuilder;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class ServerStreamingClient {
-    private static final Logger logger = Logger.getLogger(ServerStreamingClient.class.getName());
+public class client {
+    private static final Logger logger = Logger.getLogger(client.class.getName());
     private final ManagedChannel channel;
     private final ServerStreamingServiceGrpc.ServerStreamingServiceBlockingStub blockingStub;
 
-    public ServerStreamingClient(String host, int port) {
+    public client(String host, int port) {
         channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
                 .build();
@@ -30,7 +30,7 @@ public class ServerStreamingClient {
     }
 
     public static void main(String[] args) throws Exception {
-        ServerStreamingClient client = new ServerStreamingClient("localhost", 50051);
+        client client = new client("localhost", 50051);
         try {
             client.serverStream();
         } finally {
