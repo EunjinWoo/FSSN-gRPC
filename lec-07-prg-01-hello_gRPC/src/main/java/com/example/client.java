@@ -5,11 +5,11 @@ import io.grpc.ManagedChannelBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-public class HelloGrpcClient {
+public class client {
     private final ManagedChannel channel;
     private final MyServiceGrpc.MyServiceBlockingStub blockingStub;
 
-    public HelloGrpcClient(String host, int port) {
+    public client(String host, int port) {
         channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
                 .build();
@@ -27,7 +27,7 @@ public class HelloGrpcClient {
     }
 
     public static void main(String[] args) throws Exception {
-        HelloGrpcClient client = new HelloGrpcClient("localhost", 50051);
+        client client = new client("localhost", 50051);
         try {
             client.myFunction(4);
         } finally {

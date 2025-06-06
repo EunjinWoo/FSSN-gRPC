@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class HelloGrpcServer {
-    private static final Logger logger = Logger.getLogger(HelloGrpcServer.class.getName());
+public class server {
+    private static final Logger logger = Logger.getLogger(server.class.getName());
     private Server server;
 
     private void start() throws IOException {
@@ -24,7 +24,7 @@ public class HelloGrpcServer {
             public void run() {
                 System.err.println("*** shutting down gRPC server since JVM is shutting down");
                 try {
-                    HelloGrpcServer.this.stop();
+                    server.this.stop();
                 } catch (InterruptedException e) {
                     e.printStackTrace(System.err);
                 }
@@ -46,7 +46,7 @@ public class HelloGrpcServer {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        final HelloGrpcServer server = new HelloGrpcServer();
+        final server server = new server();
         server.start();
         server.blockUntilShutdown();
     }
@@ -54,8 +54,9 @@ public class HelloGrpcServer {
     static class MyServiceImpl extends MyServiceGrpc.MyServiceImplBase {
         @Override
         public void myFunction(MyNumber request, StreamObserver<MyNumber> responseObserver) {
+            int result = request.getValue() * request.getValue();
             MyNumber response = MyNumber.newBuilder()
-                    .setValue(MyFunction.myFunc(request.getValue()))
+                    .setValue(result)
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
