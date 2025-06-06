@@ -8,12 +8,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class ClientStreamingClient {
-    private static final Logger logger = Logger.getLogger(ClientStreamingClient.class.getName());
+public class client {
+    private static final Logger logger = Logger.getLogger(client.class.getName());
     private final ManagedChannel channel;
     private final ClientStreamingServiceGrpc.ClientStreamingServiceStub asyncStub;
 
-    public ClientStreamingClient(String host, int port) {
+    public client(String host, int port) {
         channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
                 .build();
@@ -69,7 +69,7 @@ public class ClientStreamingClient {
     }
 
     public static void main(String[] args) throws Exception {
-        ClientStreamingClient client = new ClientStreamingClient("localhost", 50051);
+        client client = new client("localhost", 50051);
         try {
             client.clientStream();
         } finally {
