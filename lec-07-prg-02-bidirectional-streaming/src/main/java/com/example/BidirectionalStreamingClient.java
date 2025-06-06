@@ -30,7 +30,7 @@ public class BidirectionalStreamingClient {
         StreamObserver<Message> requestObserver = asyncStub.bidirectionalStream(new StreamObserver<Message>() {
             @Override
             public void onNext(Message message) {
-                logger.info("Received message from server: " + message.getContent());
+                System.out.println("[server to client] " + message.getContent());
             }
 
             @Override
@@ -41,17 +41,22 @@ public class BidirectionalStreamingClient {
 
             @Override
             public void onCompleted() {
-                logger.info("Stream completed");
                 finishLatch.countDown();
             }
         });
 
         try {
-            // Send some messages
-            String[] messages = {"Hello", "How are you?", "Goodbye"};
+            String[] messages = {
+                    "message #1",
+                    "message #2",
+                    "message #3",
+                    "message #4",
+                    "message #5"
+            };
+
             for (String message : messages) {
+                System.out.println("[client to server] " + message);
                 requestObserver.onNext(Message.newBuilder().setContent(message).build());
-                Thread.sleep(1000); // Wait a bit between messages
             }
         } catch (RuntimeException e) {
             requestObserver.onError(e);

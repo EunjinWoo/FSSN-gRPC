@@ -18,7 +18,7 @@ public class BidirectionalStreamingServer {
                 .addService(new BidirectionalServiceImpl())
                 .build()
                 .start();
-        logger.info("Server started, listening on " + port);
+        System.out.println("Starting server. Listening on port " + port);
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
@@ -54,14 +54,12 @@ public class BidirectionalStreamingServer {
     static class BidirectionalServiceImpl extends BidirectionalServiceGrpc.BidirectionalServiceImplBase {
         @Override
         public StreamObserver<Message> bidirectionalStream(StreamObserver<Message> responseObserver) {
+            System.out.println("Server processing gRPC bidirectional streaming.");
             return new StreamObserver<Message>() {
                 @Override
                 public void onNext(Message message) {
-                    logger.info("Received message: " + message.getContent());
                     // Echo back the message
-                    responseObserver.onNext(Message.newBuilder()
-                            .setContent("Server received: " + message.getContent())
-                            .build());
+                    responseObserver.onNext(message);
                 }
 
                 @Override
@@ -71,7 +69,6 @@ public class BidirectionalStreamingServer {
 
                 @Override
                 public void onCompleted() {
-                    logger.info("Stream completed");
                     responseObserver.onCompleted();
                 }
             };

@@ -6,7 +6,7 @@ option java_package = "com.example";
 package bidirectional;
 
 service BidirectionalService {
-  rpc BidirectionalStream (stream Message) returns (stream Message) {}
+  rpc bidirectionalStream (stream Message) returns (stream Message) {}
 }
 
 message Message {
