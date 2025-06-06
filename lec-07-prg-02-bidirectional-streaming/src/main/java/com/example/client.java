@@ -8,12 +8,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class BidirectionalStreamingClient {
-    private static final Logger logger = Logger.getLogger(BidirectionalStreamingClient.class.getName());
+public class client {
+    private static final Logger logger = Logger.getLogger(client.class.getName());
     private final ManagedChannel channel;
     private final BidirectionalServiceGrpc.BidirectionalServiceStub asyncStub;
 
-    public BidirectionalStreamingClient(String host, int port) {
+    public client(String host, int port) {
         channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
                 .build();
@@ -68,7 +68,7 @@ public class BidirectionalStreamingClient {
     }
 
     public static void main(String[] args) throws Exception {
-        BidirectionalStreamingClient client = new BidirectionalStreamingClient("localhost", 50051);
+        client client = new client("localhost", 50051);
         try {
             client.bidirectionalStream();
         } finally {

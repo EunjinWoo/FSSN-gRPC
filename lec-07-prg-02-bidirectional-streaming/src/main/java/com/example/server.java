@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class BidirectionalStreamingServer {
-    private static final Logger logger = Logger.getLogger(BidirectionalStreamingServer.class.getName());
+public class server {
+    private static final Logger logger = Logger.getLogger(server.class.getName());
     private Server server;
 
     private void start() throws IOException {
@@ -24,7 +24,7 @@ public class BidirectionalStreamingServer {
             public void run() {
                 System.err.println("*** shutting down gRPC server since JVM is shutting down");
                 try {
-                    BidirectionalStreamingServer.this.stop();
+                    server.this.stop();
                 } catch (InterruptedException e) {
                     e.printStackTrace(System.err);
                 }
@@ -46,7 +46,7 @@ public class BidirectionalStreamingServer {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        final BidirectionalStreamingServer server = new BidirectionalStreamingServer();
+        final server server = new server();
         server.start();
         server.blockUntilShutdown();
     }

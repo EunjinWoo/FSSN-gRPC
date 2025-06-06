@@ -52,19 +52,19 @@ java {
 }
 
 application {
-    mainClass = 'com.example.BidirectionalStreamingServer'
+    mainClass = 'com.example.server'
 }
 
 tasks.register('runServer', JavaExec) {
     group = 'application'
     description = 'Run the bidirectional streaming gRPC server'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.example.BidirectionalStreamingServer'
+    mainClass = 'com.example.server'
 }
 
 tasks.register('runClient', JavaExec) {
     group = 'application'
     description = 'Run the bidirectional streaming gRPC client'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.example.BidirectionalStreamingClient'
+    mainClass = 'com.example.client'
 }
